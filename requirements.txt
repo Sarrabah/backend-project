@@ -2,3 +2,5 @@ django
 flake8
 black
 isort
+mysqlclient
+pthon-decouple
