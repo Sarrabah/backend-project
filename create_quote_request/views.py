@@ -1,3 +1,4 @@
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -11,6 +12,16 @@ class QuoteRequestApiView(APIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
+    @swagger_auto_schema(
+        operation_description="Create a new quote request",
+        request_body=QuoteRequestSerializer,
+        responses={
+            201: QuoteRequestSerializer,
+            400: "Bad Request",
+            401: "Unauthorized",
+            500: "Internal error",
+        },
+    )
     def post(self, request):
         serializer = QuoteRequestSerializer(data=request.data)
 
