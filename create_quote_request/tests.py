@@ -20,11 +20,15 @@ class QuoteRequestAPITestCase(TestCase):
         self.client.force_authenticate(user=self.archi)
         self.url = reverse("add-new-quote-request")
 
-    def test_create_quote_request_api_success_status(self):
+    def test_create_quote_request_api_success(self):
         payload = {
             "title": "First quote request",
             "description": "First quote request description",
             "status": "Created",
         }
         response = self.client.post(self.url, payload, format="json")
+        data = response.json()
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(data["title"], payload["title"])
+        self.assertEqual(data["description"], payload["description"])
+        self.assertEqual(data["status"], payload["status"])

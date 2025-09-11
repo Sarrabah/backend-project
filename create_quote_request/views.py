@@ -5,4 +5,4 @@ from rest_framework.views import APIView
 class QuoteRequestApiView(APIView):
 
     def post(self, request):
-        return Response(status=201)
+        return Response(request.data, status=201)
