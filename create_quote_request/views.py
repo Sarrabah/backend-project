@@ -1,3 +1,5 @@
+import logging
+
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
@@ -6,6 +8,9 @@ from rest_framework.views import APIView
 
 from create_quote_request.serializers import QuoteRequestSerializer
 from create_quote_request.services import create_quote_request
+
+logger = logging.getLogger(__name__)
+logging.basicConfig(level=logging.INFO)
 
 
 class QuoteRequestApiView(APIView):
@@ -26,13 +31,18 @@ class QuoteRequestApiView(APIView):
         serializer = QuoteRequestSerializer(data=request.data)
 
         if not serializer.is_valid():
+            logger.error(f"Validation error: {serializer.errors}")
             return Response(serializer.errors, status=400)
 
         try:
             valid_data = serializer.validated_data
             new_quote_request = create_quote_request(request, valid_data)
+            logger.info(
+                f"QuoteRequest created with ID: {new_quote_request.id} by user: {request.user.id}"
+            )
             return self._successful_response_created(new_quote_request)
         except Exception as e:
+            logger.error(f"Unexpected error: {str(e)}")
             return Response(
                 {"error": f"An unexpected error occurred: {str(e)}"}, status=500
             )
