@@ -1,3 +1,4 @@
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -6,6 +7,7 @@ from create_quote_request.services import create_quote_request
 
 
 class QuoteRequestApiView(APIView):
+    authentication_classes = [TokenAuthentication]
 
     def post(self, request):
         serializer = QuoteRequestSerializer(data=request.data)
