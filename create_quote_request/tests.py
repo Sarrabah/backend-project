@@ -32,3 +32,11 @@ class QuoteRequestAPITestCase(TestCase):
         self.assertEqual(data["title"], payload["title"])
         self.assertEqual(data["description"], payload["description"])
         self.assertEqual(data["status"], payload["status"])
+
+    def test_create_quote_request_api_missing_field(self):
+        payload = {
+            "title": "First quote request",
+            "description": "First quote request description",
+        }
+        response = self.client.post(self.url, payload, format="json")
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
