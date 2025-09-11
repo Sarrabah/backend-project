@@ -105,6 +105,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = "create_quote_request.Architect"
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/

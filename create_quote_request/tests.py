@@ -28,5 +28,3 @@ class QuoteRequestAPITestCase(TestCase):
         }
         response = self.client.post(self.url, payload, format="json")
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-
-    
