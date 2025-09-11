@@ -8,9 +8,12 @@ class Architect(AbstractUser):
     adress = models.CharField(max_length=255, blank=True, null=True)
     region_code = models.CharField(max_length=20)
     phone_number = models.CharField(max_length=30, blank=True, null=True)
-    username = models.CharField(unique=False, max_length=100, default="username")
+    username = models.CharField(unique=True, max_length=100)
 
-    USERNAME_FIELD = "email"
+    ROLE_CHOICES = [("archi", "Archi"), ("secretary", "Secretary")]
+    role = models.CharField(max_length=20, choices=ROLE_CHOICES)
+
+    USERNAME_FIELD = "username"
     REQUIRED_FIELDS = ["first_name", "last_name"]
 
     def __str__(self) -> str:

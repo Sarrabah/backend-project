@@ -8,6 +8,9 @@ from rest_framework import status
 class QuoteRequestAPITestCase(TestCase):
 
     def setUp(self):
+        self.mock_user = MagicMock()
+        self.mock_user.is_authenticated = True
+        self.mock_user.role = "archi"
         self.url = reverse("add-new-quote-request")
 
     @patch("create_quote_request.views.create_quote_request")
@@ -23,7 +26,12 @@ class QuoteRequestAPITestCase(TestCase):
             "description": "First quote request description",
             "status": "Created",
         }
-        response = self.client.post(self.url, payload, format="json")
+        with patch(
+            "rest_framework.request.Request.user",
+            new_callable=MagicMock(return_value=self.mock_user),
+        ):
+
+            response = self.client.post(self.url, payload, format="json")
 
         data = response.json()
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
@@ -36,7 +44,11 @@ class QuoteRequestAPITestCase(TestCase):
             "title": "First quote request",
             "description": "First quote request description",
         }
-        response = self.client.post(self.url, payload, format="json")
+        with patch(
+            "rest_framework.request.Request.user",
+            new_callable=MagicMock(return_value=self.mock_user),
+        ):
+            response = self.client.post(self.url, payload, format="json")
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
     @patch(
@@ -49,6 +61,10 @@ class QuoteRequestAPITestCase(TestCase):
             "description": "First quote request description",
             "status": "Created",
         }
-        response = self.client.post(self.url, payload, format="json")
+        with patch(
+            "rest_framework.request.Request.user",
+            new_callable=MagicMock(return_value=self.mock_user),
+        ):
+            response = self.client.post(self.url, payload, format="json")
 
         self.assertEqual(response.status_code, status.HTTP_500_INTERNAL_SERVER_ERROR)
