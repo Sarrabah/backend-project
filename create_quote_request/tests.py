@@ -1,4 +1,4 @@
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, patch
 
 from django.test import TestCase
 from django.urls import reverse
@@ -40,3 +40,17 @@ class QuoteRequestAPITestCase(TestCase):
         }
         response = self.client.post(self.url, payload, format="json")
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    @patch(
+        "create_quote_request.services.create_quote_request",
+        side_effect=Exception("DB failure"),
+    )
+    def test_create_quote_request_unexpected_error_returns_500(self, mock_create):
+        payload = {
+            "title": "First quote request",
+            "description": "First quote request description",
+            "status": "Created",
+        }
+        response = self.client.post(self.url, payload, format="json")
+
+        self.assertEqual(response.status_code, status.HTTP_500_INTERNAL_SERVER_ERROR)
