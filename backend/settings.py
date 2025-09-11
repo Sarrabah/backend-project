@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "create_quote_request",
     "rest_framework",
-    "rest_framework.authtoken"
+    "rest_framework.authtoken",
+    "drf_yasg",
 ]
 
 REST_FRAMEWORK = {
@@ -58,6 +59,16 @@ REST_FRAMEWORK = {
     'DEFAULT_THROTTLE_RATES': {
         'user': '100/day',
     }
+}
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'Token': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header'
+        }
+    },
+    'USE_SESSION_AUTH': False,  # pour enlever le formulaire username/password
 }
 
 MIDDLEWARE = [
