@@ -5,3 +5,4 @@ isort
 mysqlclient
 python-decouple
 djangorestframework
+drf_yasg
