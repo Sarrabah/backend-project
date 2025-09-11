@@ -3,4 +3,5 @@ flake8
 black
 isort
 mysqlclient
-pthon-decouple
+python-decouple
+djangorestframework

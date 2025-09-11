@@ -2,14 +2,15 @@ name: CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ "*" ]
   pull_request:
-    branches: [ opened, synchronize ]
+    branches: [ "*" ]
 
 jobs:
   test:
     runs-on: ubuntu-latest
-
+    env:
+        SECRET_KEY: ${{ secrets.SECRET_KEY }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
