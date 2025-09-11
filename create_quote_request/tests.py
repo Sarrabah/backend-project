@@ -3,19 +3,11 @@ from unittest.mock import MagicMock, patch
 from django.test import TestCase
 from django.urls import reverse
 from rest_framework import status
-from rest_framework.test import APIClient
 
 
 class QuoteRequestAPITestCase(TestCase):
 
     def setUp(self):
-        # Créer un client API
-        self.client = APIClient()
-        # Simuler un utilisateur
-        self.archi = MagicMock()
-        self.archi.id = 1
-        self.archi.username = "philippe"
-
         self.url = reverse("add-new-quote-request")
 
     @patch("create_quote_request.views.create_quote_request")
