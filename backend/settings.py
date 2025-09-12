@@ -28,7 +28,7 @@ SECRET_KEY = config('SECRET_KEY', default='django-insecure-test-key')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "https://artcreapro-b8bcfcc5aahfabdc.francecentral-01.azurewebsites.net/"]
 
 
 # Application definition
@@ -112,17 +112,35 @@ if 'test' in sys.argv:
         }
     }
 else:
-    DATABASES = {
-        "default": {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': config('DB_NAME', default='test_db'),
-            'USER': config('DB_USER', default='root'),
-            'PASSWORD': config('DB_PASSWORD', default='root'),
-            'HOST': config('DB_HOST', default='127.0.0.1'),
-            'PORT': config('DB_PORT', default='3306')
-        }
-    }
+    ENV = config("ENV", default="local")
 
+    if ENV == "local":
+        # Base locale MySQL
+        DATABASES = {
+            "default": {
+                'ENGINE': 'django.db.backends.mysql',
+                'NAME': config('DB_NAME'),
+                'USER': config('DB_USER'),
+                'PASSWORD': config('DB_PASSWORD'),
+                'HOST': config('DB_HOST'),
+                'PORT': config('DB_PORT')   
+            }
+        }
+    else:
+        # Base Azure SQL Server (MSSQL)
+        DATABASES = {
+            "default": {
+                'ENGINE': 'mssql',
+                'NAME': config('DB_NAME'),
+                'USER': config('DB_USER'),
+                'PASSWORD': config('DB_PASSWORD'),
+                'HOST': config('DB_HOST'),
+                'PORT': '1433',
+                'OPTIONS': {
+                    'driver': 'ODBC Driver 18 for SQL Server',
+                },
+            }
+        }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators

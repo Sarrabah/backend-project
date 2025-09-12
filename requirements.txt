@@ -6,3 +6,4 @@ mysqlclient
 python-decouple
 djangorestframework
 drf_yasg
+mssql-django
