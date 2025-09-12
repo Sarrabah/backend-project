@@ -26,7 +26,6 @@ schema_view = get_schema_view(
       title="Art Crea Pro API",
       default_version='v1',
       description="Here is the API documentation for Art Crea Pro",
-      terms_of_service="https://www.google.com/policies/terms/",
       contact=openapi.Contact(email="sarrabenarbia1996@gmail.com@gmail.com"),
       license=openapi.License(name="License"),
       
