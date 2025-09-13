@@ -7,4 +7,6 @@ python-decouple
 djangorestframework
 drf_yasg
 mssql-django
-pyodbc 
+pyodbc
+gunicorn
+whitenoise
