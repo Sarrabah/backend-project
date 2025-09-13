@@ -1,8 +1,10 @@
-django 
-flake8
-black
-isort
+django==5.2.6
+flake8==7.3.0
+black==25.1.0
+isort==6.0.1
 mysqlclient
 python-decouple
 djangorestframework
 drf_yasg
+mssql-django
+pyodbc
