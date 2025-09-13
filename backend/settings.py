@@ -69,7 +69,7 @@ SWAGGER_SETTINGS = {
             'in': 'header'
         }
     },
-    'USE_SESSION_AUTH': False,  # pour enlever le formulaire username/password
+    'USE_SESSION_AUTH': False,
 }
 
 MIDDLEWARE = [
