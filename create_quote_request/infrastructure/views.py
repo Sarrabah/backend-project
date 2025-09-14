@@ -6,8 +6,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from create_quote_request.serializers import QuoteRequestSerializer
-from create_quote_request.services import create_quote_request
+from create_quote_request.infrastructure.serializers import QuoteRequestSerializer
+from create_quote_request.domaine.services import create_quote_request
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
@@ -37,10 +37,11 @@ class QuoteRequestApiView(APIView):
         try:
             valid_data = serializer.validated_data
             new_quote_request = create_quote_request(request, valid_data)
+            response = self._successful_response_created(new_quote_request)
             logger.info(
                 f"QuoteRequest created with ID: {new_quote_request.id} by user: {request.user.id}"
             )
-            return self._successful_response_created(new_quote_request)
+            return response
         except Exception as e:
             logger.error(f"Unexpected error: {str(e)}")
             return Response(
@@ -48,6 +49,5 @@ class QuoteRequestApiView(APIView):
             )
 
     def _successful_response_created(self, new_quote_request):
-        """Retourne la réponse HTTP 201 avec les données sérialisées."""
         created_data = QuoteRequestSerializer(new_quote_request).data
         return Response(created_data, status=201)

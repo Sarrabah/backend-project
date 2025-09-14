@@ -1,6 +1,6 @@
 from rest_framework.exceptions import PermissionDenied
 
-from create_quote_request.models import QuoteRequest
+from create_quote_request.infrastructure.models import QuoteRequest
 
 
 def create_quote_request(request, valid_data):
