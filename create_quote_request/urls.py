@@ -1,6 +1,6 @@
 from django.urls import path
 
-from create_quote_request.infrastructure.views import QuoteRequestApiView
+from create_quote_request.views import QuoteRequestApiView
 
 urlpatterns = [
     path(

@@ -6,8 +6,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from create_quote_request.domaine.services import create_quote_request
-from create_quote_request.infrastructure.serializers import QuoteRequestSerializer
+from create_quote_request.services import create_quote_request
+from create_quote_request.serializers import QuoteRequestSerializer
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
