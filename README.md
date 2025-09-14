@@ -30,6 +30,8 @@ cd backend-project
 
 ### 2\. Create a virtual environment & install dependencies
 
+Python version: 3.10.12
+
 ```
 python -m venv venv
 source venv/bin/activate   # Linux
@@ -38,7 +40,7 @@ pip install -r requirements.txt
 
 ### 3\. Set environment variables
 
-Create a `.env` file at the project root to store django secret key and your database information.
+Create a `.env` file at the project root to store django secret key and your database information (You must install mysql locally)
 
 ### 4\. Run migrations
 
